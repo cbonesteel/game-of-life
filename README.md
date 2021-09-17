@@ -19,11 +19,11 @@ installed, which for this is only pygame for the graphics. Then just use the
 python command to run!
 
 ## Current State
-The code as is has a working algorithm and a glider gun starting state. Looping
-of the cells is not implemented so cells will stop at the edge of the array.
-The array and window size are not matched at the moment.
+The code as is has a working algorithm and a glider gun starting state. Cells
+will loop around so the space is finite versus infinite.
 
 ## TODO
 - [X] Fix window and array size mismatch
 - [X] Fix looping of cells and clean up adjacent count function
 - [ ] Create way to more easily create start states?
+- [ ] Put different start states in different methods that can be called?
