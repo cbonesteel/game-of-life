@@ -24,6 +24,6 @@ of the cells is not implemented so cells will stop at the edge of the array.
 The array and window size are not matched at the moment.
 
 ## TODO
-- [ ] Fix window and array size mismatch
-- [ ] Fix looping of cells and clean up adjacent count function
+- [X] Fix window and array size mismatch
+- [X] Fix looping of cells and clean up adjacent count function
 - [ ] Create way to more easily create start states?
