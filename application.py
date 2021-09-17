@@ -103,70 +103,60 @@ def drawCurrentGen():
             if currentGen[int(x/10)][int(y/10)] == 1:
                 rect = pygame.Rect(y, x, blockSize, blockSize)
                 pygame.draw.rect(screen, black, rect, 0)
-                            
+
 def findNumAdjacent(row, col):
     counter = 0
 
-    rowUp = row - 1
-    rowDown = row + 1
-    colLeft = col - 1
-    colRight = col + 1
-    
     top = False
     bot = False
     left = False
     right = False
     
-    # Checks for center cell
-    if rowUp >= 0 and colLeft >= 0 and rowDown < rows - 1 and colRight < cols - 1:
-        counter += currentGen[rowUp][colLeft] + currentGen[rowUp][col] + currentGen[rowUp][colRight]
-        counter += currentGen[row][colLeft] + currentGen[row][colRight]
-        counter += currentGen[rowDown][colLeft] + currentGen[rowDown][col] + currentGen[rowDown][colRight]
-        return counter
-
-    if rowUp < 0:
+    if row - 1 < 0:
         top = True
-        counter += currentGen[rows - 1][col]
-        counter += currentGen[rowDown][col]
-    elif rowDown > rows - 1:
+    elif row + 1 >= rows:
         bot = True
-        counter += currentGen[0][col]
-        counter += currentGen[rowUp][col]
-        
-    if colLeft < 0:
-        left = True
-        counter += currentGen[row][cols - 1]
-        counter += currentGen[row][colRight]
-    elif colRight > cols - 1:
-        right = True
-        counter += currentGen[row][colLeft]
-        counter += currentGen[row][0]
 
-    if top and left:
-        counter += currentGen[rows - 1][cols - 1] + currentGen[rows - 1][colRight]
-        counter += currentGen[rowDown][cols - 1] + currentGen[rowDown][colRight]
-    elif top and right:
-        counter += currentGen[rows - 1][colLeft] + currentGen[rows - 1][0]
-        counter += currentGen[rowDown][colLeft] + currentGen[rowDown][0]
-    elif bot and left:
-        counter += currentGen[rowUp][cols - 1] + currentGen[rowUp][colRight]
-        counter += currentGen[0][cols - 1] + currentGen[0][colRight]
-    elif bot and right:
-        counter += currentGen[rowUp][colLeft] + currentGen[rowUp][0]
-        counter += currentGen[rows - 1][colLeft] + currentGen[rows - 1][0]
+    if col - 1 < 0:
+        left = True
+    elif col + 1 >= cols:
+        right = True
+
+    if not top and not bot and not left and not right:
+        counter += currentGen[row-1][col-1] + currentGen[row-1][col] + currentGen[row-1][col+1]
+        counter += currentGen[row][col-1] + currentGen[row][col+1]
+        counter += currentGen[row+1][col-1] + currentGen[row+1][col] + currentGen[row+1][col+1]
     elif top:
-        counter += currentGen[rows - 1][colLeft] + currentGen[rows - 1][colRight]
-        counter += currentGen[rowDown][colLeft] + currentGen[rowDown][colRight]
+        counter += currentGen[rows-1][col] + currentGen[row+1][col]
+        if left:
+            counter += currentGen[rows-1][cols-1] + currentGen[row][cols-1] + currentGen[row+1][cols-1]
+            counter += currentGen[rows-1][col+1] + currentGen[row][col+1] + currentGen[row+1][col+1]
+        elif right:
+            counter += currentGen[rows-1][col-1] + currentGen[row][col-1] + currentGen[row+1][col-1]
+            counter += currentGen[rows-1][0] + currentGen[row][0] + currentGen[row+1][0]
+        else:
+            counter += currentGen[rows-1][col-1] + currentGen[row][col-1] + currentGen[row+1][col-1]
+            counter += currentGen[rows-1][col+1] + currentGen[row][col+1] + currentGen[row+1][col+1]
     elif bot:
-        counter += currentGen[rowUp][colLeft] + currentGen[rowUp][colRight]
-        counter += currentGen[0][colLeft] + currentGen[0][colRight]
+        counter += currentGen[row-1][col] + currentGen[0][col]
+        if left:
+            counter += currentGen[row-1][cols-1] + currentGen[row][cols-1] + currentGen[0][cols-1]
+            counter += currentGen[row-1][col+1] + currentGen[row][col+1] + currentGen[0][col+1]
+        elif right:
+            counter += currentGen[row-1][col-1] + currentGen[row][col-1] + currentGen[0][col-1]
+            counter += currentGen[row-1][0] + currentGen[row][0] + currentGen[0][0]
+        else:
+            counter += currentGen[row-1][col-1] + currentGen[row][col-1] + currentGen[0][col-1]
+            counter += currentGen[row-1][col+1] + currentGen[row][col+1] + currentGen[0][col+1]
     elif left:
-        counter += currentGen[rowUp][cols - 1] + currentGen[rowUp][colRight]
-        counter += currentGen[rowDown][cols - 1] + currentGen[rowDown][colRight]
+        counter += currentGen[row-1][cols-1] + currentGen[row-1][col] + currentGen[row-1][col+1]
+        counter += currentGen[row][cols-1] + currentGen[row][col+1]
+        counter += currentGen[row+1][cols-1] + currentGen[row+1][col] + currentGen[row+1][col+1]
     elif right:
-        counter += currentGen[rowUp][colLeft] + currentGen[rowUp][0]
-        counter += currentGen[rowDown][colLeft] + currentGen[rowDown][0]
-    
+        counter += currentGen[row-1][col-1] + currentGen[row-1][col] + currentGen[row-1][0]
+        counter += currentGen[row][col-1] + currentGen[row][0]
+        counter += currentGen[row+1][col-1] + currentGen[row+1][col] + currentGen[row+1][0]
+
     return counter
 
 def findNextGen():
@@ -189,6 +179,5 @@ def updateCurrentGen():
         for j in range(cols):
             currentGen[i][j] = nextGen[i][j]
             nextGen[i][j] = 0
-
 
 main()
