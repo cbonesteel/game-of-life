@@ -30,7 +30,6 @@ def main():
         clock.tick(10)
         
         screen.fill(white)
-        drawGrid()
         drawCurrentGen()
         findNextGen()
         updateCurrentGen()
@@ -134,4 +133,5 @@ def updateCurrentGen():
             currentGen[i][j] = nextGen[i][j]
             nextGen[i][j] = 0
 
-main()
+if __name__ == '__main__':
+    main()
