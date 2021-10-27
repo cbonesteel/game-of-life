@@ -1,5 +1,4 @@
 import sys, pygame
-import startPositions
 from events import *
 from pygame.locals import *
 
