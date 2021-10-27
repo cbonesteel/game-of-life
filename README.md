@@ -19,11 +19,22 @@ installed, which for this is only pygame for the graphics. Then just use the
 python command to run!
 
 ## Current State
-The code as is has a working algorithm and a glider gun starting state. Cells
-will loop around so the space is finite versus infinite.
+Cells will loop around so the space is finite versus infinite. The game starts in
+the paused state so the user can create their own start state.
+
+## Controls
+Exc - Quit
+P - Pause/Unpause
+Left Arrow - Slow Time
+Right Arrow - Quicken Time
+#### When Paused
+Left Click - Create Life
+Right Click - End Life
 
 ## TODO
 - [X] Fix window and array size mismatch
 - [X] Fix looping of cells and clean up adjacent count function
-- [ ] Create way to more easily create start states?
-- [ ] Put different start states in different methods that can be called?
+- [X] Create way to more easily create start states
+- [X] Add Speed Control
+- [X] Add Pause and UnPause
+- [ ] Create Random Life Button
