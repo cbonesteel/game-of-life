@@ -26,8 +26,6 @@ def main():
     tick = 10
 
     screen.fill(white)
-
-    startPositions.setGliderGun(currentGen)
     
     while not done:
         clock.tick(tick)
