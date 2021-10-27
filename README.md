@@ -23,13 +23,13 @@ Cells will loop around so the space is finite versus infinite. The game starts i
 the paused state so the user can create their own start state.
 
 ## Controls
-Exc - Quit
-P - Pause/Unpause
-Left Arrow - Slow Time
-Right Arrow - Quicken Time
+Exc - Quit  
+P - Pause/Unpause  
+Left Arrow - Slow Time  
+Right Arrow - Quicken Time  
 #### When Paused
-Left Click - Create Life
-Right Click - End Life
+Left Click - Create Life  
+Right Click - End Life  
 
 ## TODO
 - [X] Fix window and array size mismatch
