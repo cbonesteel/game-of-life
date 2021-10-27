@@ -1,5 +1,7 @@
 import sys, pygame
 import startPositions
+from events import *
+from pygame.locals import *
 
 white = (255, 255, 255)
 black = (0, 0, 0)
@@ -20,27 +22,65 @@ def main():
     screen = pygame.display.set_mode((window_width, window_height))
     clock = pygame.time.Clock()
     done = False
+    paused = True
+    tick = 10
 
     screen.fill(white)
 
     startPositions.setGliderGun(currentGen)
     
     while not done:
-        clock.tick(10)
+        clock.tick(tick)
         
-        screen.fill(white)
-        drawCurrentGen()
-        findNextGen()
-        updateCurrentGen()
+        if not paused:
+            screen.fill(white)
+            drawCurrentGen()
+            findNextGen()
+            updateCurrentGen()
+        else:
+            drawCurrentGen()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == K_p:
+                    if paused:
+                        pygame.event.post(pygame.event.Event(UNPAUSEGAME, {}))
+                    else:
+                        pygame.event.post(pygame.event.Event(PAUSEGAME, {}))
+                if event.key == K_ESCAPE:
+                    done = True
+                if event.key == K_RIGHT:
+                    tick += 1
+                if event.key == K_LEFT:
+                    if tick != 1:
+                        tick -= 1
+            
+            if event.type == pygame.MOUSEBUTTONDOWN and paused:
+                pressed = pygame.mouse.get_pressed()
+                if pressed[0]:
+                    x,y = pygame.mouse.get_pos()
+                    x = int(x / 10)
+                    y = int(y / 10)
+                    currentGen[y][x] = 1
+                elif pressed[2]:
+                    x,y = pygame.mouse.get_pos()
+                    x = int(x / 10)
+                    y = int(y / 10)
+                    currentGen[y][x] = 0
+
+            if event.type == PAUSEGAME:
+                paused = True
+            if event.type == UNPAUSEGAME:
+                paused = False
                 
         pygame.display.update()
 
     pygame.quit()
+    sys.exit()
 
-    
 def drawGrid():
     blockSize = 10 #Set the size of the grid block
     for x in range(0, window_width, blockSize):
@@ -55,6 +95,9 @@ def drawCurrentGen():
             if currentGen[int(x/10)][int(y/10)] == 1:
                 rect = pygame.Rect(y, x, blockSize, blockSize)
                 pygame.draw.rect(screen, black, rect, 0)
+            else:
+                rect = pygame.Rect(y, x, blockSize, blockSize)
+                pygame.draw.rect(screen, white, rect, 0)
 
 def findNumAdjacent(row, col):
     counter = 0
