@@ -1,4 +1,5 @@
 import sys, pygame
+from random import randint
 from events import *
 from pygame.locals import *
 
@@ -54,6 +55,10 @@ def main():
                 if event.key == K_LEFT:
                     if tick != 1:
                         tick -= 1
+                if event.key == K_r and paused:
+                    reset()
+                if event.key == K_t and paused:
+                    randomLife()
             
             if event.type == pygame.MOUSEBUTTONDOWN and paused:
                 pressed = pygame.mouse.get_pressed()
@@ -170,6 +175,18 @@ def updateCurrentGen():
     for i in range(rows):
         for j in range(cols):
             currentGen[i][j] = nextGen[i][j]
+            nextGen[i][j] = 0
+
+def randomLife():
+    for i in range(rows):
+        for j in range(cols):
+            currentGen[i][j] = randint(0, 1)
+            
+
+def reset():
+    for i in range(rows):
+        for j in range(cols):
+            currentGen[i][j] = 0
             nextGen[i][j] = 0
 
 if __name__ == '__main__':
