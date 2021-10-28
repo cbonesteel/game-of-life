@@ -28,8 +28,8 @@ P - Pause/Unpause
 Left Arrow - Slow Time  
 Right Arrow - Quicken Time  
 #### When Paused
-R - Reset Board
-T - Random Life
+R - Reset Board  
+T - Random Life  
 Left Click - Create Life  
 Right Click - End Life  
 
