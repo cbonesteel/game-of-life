@@ -28,6 +28,8 @@ P - Pause/Unpause
 Left Arrow - Slow Time  
 Right Arrow - Quicken Time  
 #### When Paused
+R - Reset Board
+T - Random Life
 Left Click - Create Life  
 Right Click - End Life  
 
@@ -37,4 +39,5 @@ Right Click - End Life
 - [X] Create way to more easily create start states
 - [X] Add Speed Control
 - [X] Add Pause and UnPause
-- [ ] Create Random Life Button
+- [X] Create Random Life Button
+- [X] Create Reset Button
