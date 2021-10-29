@@ -37,6 +37,7 @@ def main():
             updateCurrentGen()
         else:
             drawCurrentGen()
+            drawGrid()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -98,7 +99,7 @@ def drawCurrentGen():
                 rect = pygame.Rect(y, x, blockSize, blockSize)
                 pygame.draw.rect(screen, black, rect, 0)
             else:
-                rect = pygame.Rect(y, x, blockSize, blockSize)
+                rect = pygame.Rect(y, x, blockSize - 1, blockSize - 1)
                 pygame.draw.rect(screen, white, rect, 0)
 
 def findNumAdjacent(row, col):
